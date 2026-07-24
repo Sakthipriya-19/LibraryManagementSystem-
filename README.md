@@ -25,7 +25,7 @@ A simple admin-only library management application built with Python Flask, HTML
 
 ## Admin credentials
 - Username: `admin`
-- Password: `admin123`
+- Password: `sakthi19`
 
 ## Notes
 The app uses SQLite via `library.db` and auto-creates the database tables on first run.
