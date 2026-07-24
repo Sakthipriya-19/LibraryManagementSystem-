@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+    <h2><i class="fa-solid fa-book-open-reader"></i> Issue Book</h2>
+    <form method="POST" action="{{ url_for('issue_book') }}" class="grid form-grid">
+        <label>Choose Book
+            <select name="book_id" required>
+                <option value="">Select a book</option>
+                {% for book in books %}
+                    <option value="{{ book.id }}">{{ book.title }} by {{ book.author }} (Available {{ book.available }})</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Borrower Name<input name="borrower_name" type="text" required></label>
+        <label>Due in Days<input name="days" type="number" value="14" min="1" required></label>
+        <div class="button-center">
+        <button type="submit" class="btn btn-primary">Issue Book</button>
+        </div>
+    </form>
+</section>
+{% endblock %}

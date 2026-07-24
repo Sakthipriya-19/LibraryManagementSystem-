@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="login-container">
+    <div class="left-panel">
+    <!-- Left Side -->
+    <div class="card auth-card">
+
+        <h1>Admin Login</h1>
+
+        <form method="POST" action="{{ url_for('login') }}">
+
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" placeholder="Admin username" required>
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" placeholder="Password" required>
+
+            <div class="button-center">
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </div>
+
+            <p class="forgot-password">
+                <a href="{{ url_for('forgot_password') }}">
+                    
+                </a>
+            </p>
+
+        </form>
+
+    </div>
+    </div>
+
+    <!-- Right Side -->
+    <div class="login-image-section">
+
+        <img src="{{ url_for('static', filename='images/Library-bro.png') }}"
+             alt="Library Image"
+             class="login-image">
+
+    </div>
+
+</div>
+
+{% endblock %}

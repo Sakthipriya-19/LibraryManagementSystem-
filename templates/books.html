@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+    <div class="section-header">
+       <h2><i class="fa-solid fa-book"></i> Book Management</h2>
+        <form class="search-form" method="GET" action="{{ url_for('books') }}">
+            <input type="text" name="q" placeholder="Search books by title, author, isbn, category" value="{{ query }}">
+            <button type="submit" class="btn btn-secondary">Search</button>
+        </form>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Title</th><th>Author</th><th>ISBN</th><th>Category</th><th>Copies</th><th>Available</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.isbn }}</td>
+                        <td>{{ book.category }}</td>
+                        <td>{{ book.copies }}</td>
+                        <td>{{ book.available }}</td>
+                        <td class="actions">
+                            <form method="POST" action="{{ url_for('delete_book', book_id=book.id) }}" onsubmit="return confirm('Delete this book?');">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="7">No books found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+<section class="card">
+    <h2><i class="fa-solid fa-square-plus"></i> Add New Book</h2>
+        <form method="POST" action="{{ url_for('books') }}" class="grid form-grid">
+        <label>Title<input name="title" type="text" required></label>
+        <label>Author<input name="author" type="text" required></label>
+        <label>ISBN<input name="isbn" type="text" required></label>
+        <label>Category<input name="category" type="text"></label>
+        <label>Copies<input name="copies" type="number" value="1" min="1" required></label>
+        <div class="button-center">
+    <button type="submit" class="btn btn-primary">Save Book</button>
+</div>
+    </form>
+</section>
+{% endblock %}

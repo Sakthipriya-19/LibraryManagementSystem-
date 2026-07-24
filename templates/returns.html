@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+    <h2><i class="fa-solid fa-right-from-bracket"></i> Return Book</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Title</th><th>Borrower</th><th>Issued</th><th>Due</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+                {% for record in issued %}
+                    <tr>
+                        <td>{{ record.title }}</td>
+                        <td>{{ record.borrower_name }}</td>
+                        <td>{{ record.issue_date }}</td>
+                        <td>{{ record.due_date }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('return_book', issue_id=record.id) }}">
+                                <button type="submit" class="btn btn-primary">Return</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="5">No active issued books.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

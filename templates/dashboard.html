@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="grid dashboard-grid">
+    <section class="card stats-card">
+        <h2><i class="fa-solid fa-chart-line"></i> Dashboard</h2>
+        <div class="stats-row">
+            <div class="stat-box">
+                <span>Total Titles</span>
+                <strong>{{ stats.total_books }}</strong>
+            </div>
+            <div class="stat-box">
+                <span>Total Copies</span>
+                <strong>{{ stats.total_copies }}</strong>
+            </div>
+            <div class="stat-box">
+                <span>Available</span>
+                <strong>{{ stats.available_books }}</strong>
+            </div>
+            <div class="stat-box">
+                <span>Issued Now</span>
+                <strong>{{ stats.issued_books }}</strong>
+            </div>
+        </div>
+    </section>
+    <section class="card">
+        <h3>Overdue Books</h3>
+        {% if overdue %}
+            <table>
+                <thead>
+                    <tr><th>Title</th><th>Borrower</th><th>Due Date</th><th>Days Late</th></tr>
+                </thead>
+                <tbody>
+                    {% for item in overdue %}
+                        <tr>
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.borrower_name }}</td>
+                            <td>{{ item.due_date }}</td>
+                            <td>{{ item.days_late }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No overdue loans today.</p>
+        {% endif %}
+    </section>
+    <section class="card full-width">
+        <h3>Recent Activity</h3>
+        <table>
+            <thead>
+                <tr><th>Title</th><th>Borrower</th><th>Issued</th><th>Due</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+                {% for issue in recent_issues %}
+                    <tr>
+                        <td>{{ issue.title }}</td>
+                        <td>{{ issue.borrower_name }}</td>
+                        <td>{{ issue.issue_date }}</td>
+                        <td>{{ issue.due_date }}</td>
+                        <td>{{ 'Returned' if issue.return_date else 'Active' }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</div>
+{% endblock %}
